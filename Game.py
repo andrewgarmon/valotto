@@ -80,7 +80,7 @@ class Game:
     def getScore(self):
         return self.score
 
-    def sortByScore(game):
+    def sortByRank(game):
         return game.score
 
     def sortByMedian(game):
