@@ -1,6 +1,5 @@
 from scraper import getGames
 from Game import Game
-from statistics import median, mean
 import json, sys
 from os.path import exists
 from os import remove
@@ -31,16 +30,19 @@ for gameDict in gameDicts:
     games.append(game)
 
 if '-s' in sys.argv or '--simulate' in sys.argv:
+    money = int(input('Amount of $: '))
+    numSims = int(input('Number of simulations: '))
     for game in games:
-        print(game.title)
-        print('price: $', game.price)
-        results = game.playGame(10)
-        # print('Median: $', median(results))
-        print('Results: ', results)
-        print('')
+        game.setResults(game.playGame(money, numSims))
+
+    games.sort(key=Game.sortByMedian, reverse=True)
+    print('\n-----     TOP 5 BY MEDIAN     -----\n')
+
+    for game in games[0:5]:
+        game.printSimulation()
 
 
 if '--rank' in sys.argv or '-r' in sys.argv:
-    games.sort(key=Game.sort, reverse=True)
+    games.sort(key=Game.sortByRank, reverse=True)
     for game in games:
         game.printSummary()
