@@ -1,3 +1,6 @@
+from random import choices
+from statistics import median
+
 # The game class takes in a dictionary as returned by the scraper.py module, and constructs a Game Object. 
 
 class Game:
@@ -55,8 +58,19 @@ class Game:
     def getTitle(self):
         return self.title
 
-    def getScore():
+    def getScore(self):
         return self.score
 
     def sort(game):
         return game.score
+
+    def playGame(self, numGames):
+        values = []
+        odds = []
+        for prize in self.prizes:
+            values.append(prize['prize_amount'])
+            odds.append(prize['current_odds'])
+        values.append(0)
+        odds.append(1 - self.getOdds())
+        return median(choices(values, weights = odds, k = numGames))
+        
