@@ -72,5 +72,5 @@ class Game:
             odds.append(prize['current_odds'])
         values.append(0)
         odds.append(1 - self.getOdds())
-        return median(choices(values, weights = odds, k = numGames))
+        return choices(values, weights = odds, k = numGames)
         
